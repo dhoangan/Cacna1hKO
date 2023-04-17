@@ -1,0 +1,7 @@
+Use quantification_filtered_data_GRCm39.sh shell script
+Options
+–i, o		input, output file
+–l A		automatically determine the library type of the sequencing reads (e.g. stranded vs.    unstranded etc.)
+-1, 2		left and right reads
+–p 8 		use 8 threads
+–gcBias		correction for this bias at the fragment level

@@ -1,0 +1,4 @@
+- Quality control for RNAseq data with FastQC (https://www.bioinformatics.babraham.ac.uk/projects/fastqc/)
+- Run fastqc to process each sample
+- Use MultiQC to aggregate results from fastqc files and generate MultiQC report file
+

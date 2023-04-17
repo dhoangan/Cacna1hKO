@@ -1,0 +1,12 @@
+sample_name;quant_name;animal;genotype;sex
+P1170_RNA_01;filtered_S1_quant_filtered;4129;WT;female
+P1170_RNA_02;filtered_S2_quant_filtered;4130;WT;female
+P1170_RNA_03;filtered_S3_quant_filtered;4284;WT;male
+P1170_RNA_04;filtered_S4_quant_filtered;4293;WT;female
+P1170_RNA_05;filtered_S5_quant_filtered;4365;WT;male
+P1170_RNA_06;filtered_S6_quant_filtered;4367;WT;male
+P1170_RNA_07;filtered_S7_quant_filtered;4394;KO;male
+P1170_RNA_09;filtered_S9_quant_filtered;4396;KO;female
+P1170_RNA_10;filtered_S10_quant_filtered;4397;KO;male
+P1170_RNA_11;filtered_S11_quant_filtered;4398;KO;female
+P1170_RNA_12;filtered_S12_quant_filtered;4399;KO;female

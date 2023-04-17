@@ -1,0 +1,8 @@
+- Build an index on transcriptome using Salmon (https://combine-lab.github.io/salmon/getting_started)
+- Need only be constructed once
+- Use the "index" command of Salmon to build the index:
+salmon index -t Mus_musculus.GRCm39.cdna.all.fa.gz -i mouse_index_GRCm39
+- Transcriptome can be obtained from http://ftp.ensembl.org/pub/release-106/fasta/mus_musculus/cdna/
+Mus_musculus.GRCm39.cdna.all.fa.gz 
+	
+

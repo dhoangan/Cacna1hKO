@@ -1,0 +1,9 @@
+-Filter data using fastp
+-https://github.com/OpenGene/fastp
+-Use fastp.sh shell script
+-Options
+–g	trim polyG tails
+–h	filtering report in html format
+–j 	filtering report in json format
+–i, -I	read1, read2 input files
+–o, -O	read1, read2 output files 
