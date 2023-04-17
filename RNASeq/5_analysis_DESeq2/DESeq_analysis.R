@@ -1,19 +1,11 @@
-# set proxy
-Sys.setenv("HTTPS_PROXY"="http://proxy.charite.de:8080")
-
 library("tximeta")
 library("DESeq2")
 library("org.Mm.eg.db")
 library("clusterProfiler")
 library("enrichplot")
-#library("topGO")
 library("ensembldb")
 library("apeglm")
-
-
-packageVersion("clusterProfiler")  
-packageVersion("DESeq2")  
-
+library("utils")
 
 #generate own annotation data base file from gtf file
 #gtffile <- "gtf/Mus_musculus.GRCm39.104.gtf.gz"
@@ -129,16 +121,14 @@ gene_resAnnoOrdered_l2fc <- gene_resAnno[order(gene_resAnno$log2FoldChange,
                                                decreasing=TRUE),]
 
 # Export annotate results
-#write.csv(as.data.frame(gene_resAnno),file="gene_resAnno.csv")
+write.csv(as.data.frame(shrink_Anno),file="shrink_Anno.csv")
 
 # Export count matrix
 count_gene_matrix_normalized = counts(gene_dds, normalized=TRUE)
 count_gene_matrix_raw = counts(gene_dds, normalized=FALSE)
-count_gene_matrix_rld = assay(rld)
 
-#write.csv(count_gene_matrix_raw, file = "results_gene_counts_raw_221011.csv")
-#write.csv(count_gene_matrix_normalized, file = "results_gene_counts_normalized_221011.csv")
-#write.csv(count_gene_matrix_rld, file = "results_gene_counts_rld_221011.csv")
+write.csv(count_gene_matrix_raw, file = "results_gene_counts_raw_221011.csv")
+write.csv(count_gene_matrix_normalized, file = "results_gene_counts_normalized_221011.csv")
 
 
 # subset genes 
@@ -184,39 +174,6 @@ results_ora_go <- enrichGO(gene = genes_de, # interested genes
 
 
 head(results_ora_go)
-
-
-
-
-
-
-#GSEA
-original_gene_list <- resLFCshrink$log2FoldChange
-names(original_gene_list) <- as.character(rownames(resLFCshrink))
-# omit any NA values 
-gene_list<-na.omit(original_gene_list)
-# sort the list in decreasing order (required for clusterProfiler)
-gene_list = sort(gene_list, decreasing = TRUE)
-
-
-gse <- gseGO(geneList=gene_list, 
-             ont ="ALL", 
-             keyType = "ENSEMBL", 
-             pvalueCutoff = 0.05,
-             minGSSize = 10,
-             OrgDb = org.Mm.eg.db,)
-gse
-gseaplot2(gse, geneSetID = 1:3, pvalue_table = TRUE)
-gseaplot2(gse, geneSetID = 4:6, pvalue_table = TRUE)
-gseaplot2(gse, geneSetID = 7:9, pvalue_table = TRUE)
-gseaplot2(gse, geneSetID = 10:12, pvalue_table = TRUE)
-gseaplot2(gse, geneSetID = 13:15, pvalue_table = TRUE)
-
-dotplot(gse) + ggtitle("dotplot for GSEA")
-#gse$ID
-#gse$Description
-#gse$core_enrichment
-
 
 #KEGG pathway over-representation analysis
 ekegg <- enrichKEGG(gene = genes_de_entrezid,
