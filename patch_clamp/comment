@@ -1,0 +1,12 @@
+1) File "Cacna1h_KO_WT_patchclamp_fit_biexponential.ipynb":
+  - Fit elicited currents with biexponential function to obtain peak current amplitudes.
+  - If data can not be fitted, then calculate the mean of the data
+  - Results and fit parameters are recorded in data_IV_40_WT, data_IV_40_KO, data_IV_WT, data_IV_KO
+
+
+2) File "Cacna1h_KO_WT_patchclamp_analysis.ipynb":
+  - Use data in files data_IV_40_WT, data_IV_40_KO, data_IV_WT, data_IV_KO to generate IV curves of peak currents.
+  - Fit IV curves with equation (1)
+
+3) File "max_amplitude_LMM.R"
+  - Compare T-type and L-type peak current amplitudes for KO vs WT at -15 mV and -35 mV (likelihood ratio test of linear mixed models). 
