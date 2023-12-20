@@ -39,14 +39,9 @@ gse <- summarizeToGene(se)
 #ddsSE <- DESeqDataSet(se, design = ~ genotype)
 ddsgeneSE <- DESeqDataSet(gse, design = ~ genotype)
 
-
 # Differential expression analysis
 #dds <- DESeq(ddsSE)
 gene_dds <- DESeq(ddsgeneSE)
-
-
-# perform regularized-logarithm transformation (rlog) on the data
-rld <- rlog(gene_dds)
 
 # define the levels to be compared
 contrast <- c("genotype", "KO", "WT")
@@ -57,21 +52,9 @@ gene_res <- results(gene_dds, contrast=contrast, alpha=0.05)
 summary(gene_res)
 mcols(gene_res)$description
 
-
-#lfc shrinkage
-resLFCshrink <- lfcShrink(gene_dds, coef="genotype_KO_vs_WT", type="apeglm")
-summary(resLFCshrink)
-
-
 #Annotation
-
-#keytypes(EDB)
-#columns(EDB)
-
 #resAnno <- res
 gene_resAnno <- gene_res
-shrink_Anno <- resLFCshrink
-
 
 #### annnotate gene-level results
 gene_resAnno$GENENAME <- mapIds(EDB,
@@ -86,47 +69,15 @@ gene_resAnno$SYMBOL <- mapIds(EDB,
                                 keytype="GENEID",
                                 multiVals="first")
 
-gene_resAnno$ENTREZID <- mapIds(org.Mm.eg.db,
-                              keys=rownames(gene_res),
-                              column="ENTREZID",
-                              keytype="ENSEMBL",
-                              multiVals="first")
+# Export annotated results
+write.csv(as.data.frame(gene_resAnno),file="gene_resAnno_only_male_231220.csv")
 
 
-shrink_Anno$GENENAME <- mapIds(EDB,
-                                keys=rownames(resLFCshrink),
-                                column="GENENAME",
-                                keytype="GENEID",
-                                multiVals="first")
-
-shrink_Anno$SYMBOL <- mapIds(EDB,
-                              keys=rownames(resLFCshrink),
-                              column="SYMBOL",
-                              keytype="GENEID",
-                              multiVals="first")
-
-
-shrink_Anno$ENTREZID <- mapIds(org.Mm.eg.db,
-                              keys=rownames(resLFCshrink),
-                              column="ENTREZID",
-                              keytype="ENSEMBL",
-                              multiVals="first")
-
-
-
-# Order annotated results
-#resAnnoOrdered <- resAnno[order(resAnno$padj),]
-gene_resAnnoOrdered <- gene_resAnno[order(gene_resAnno$padj),]
-gene_resAnnoOrdered_l2fc <- gene_resAnno[order(gene_resAnno$log2FoldChange,
-                                               decreasing=TRUE),]
-
-# Export annotate results
-write.csv(as.data.frame(shrink_Anno),file="shrink_Anno_male_only_231212.csv")
 
 # Export count matrix
 count_gene_matrix_normalized = counts(gene_dds, normalized=TRUE)
 count_gene_matrix_raw = counts(gene_dds, normalized=FALSE)
 
-write.csv(count_gene_matrix_raw, file = "results_gene_counts_raw_male_only_231212.csv")
-write.csv(count_gene_matrix_normalized, file = "results_gene_counts_normalized_male_only_231212.csv")
+write.csv(count_gene_matrix_raw, file = "results_gene_counts_raw_only_male_231212.csv")
+write.csv(count_gene_matrix_normalized, file = "results_gene_counts_normalized_only_male_231212.csv")
 

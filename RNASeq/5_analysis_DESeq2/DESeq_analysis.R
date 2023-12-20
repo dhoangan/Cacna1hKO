@@ -45,9 +45,6 @@ ddsgeneSE <- DESeqDataSet(gse, design = ~ genotype)
 gene_dds <- DESeq(ddsgeneSE)
 
 
-# perform regularized-logarithm transformation (rlog) on the data
-rld <- rlog(gene_dds)
-
 # define the levels to be compared
 contrast <- c("genotype", "KO", "WT")
 
@@ -62,12 +59,7 @@ mcols(gene_res)$description
 resLFCshrink <- lfcShrink(gene_dds, coef="genotype_KO_vs_WT", type="apeglm")
 summary(resLFCshrink)
 
-
 #Annotation
-
-#keytypes(EDB)
-#columns(EDB)
-
 #resAnno <- res
 gene_resAnno <- gene_res
 shrink_Anno <- resLFCshrink
