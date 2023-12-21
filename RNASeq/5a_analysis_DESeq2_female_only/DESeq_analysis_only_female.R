@@ -80,13 +80,13 @@ gene_resAnno$SYMBOL <- mapIds(EDB,
 
 
 # Export annotate results
-write.csv(as.data.frame(shrink_Anno),file="gene_resAnno_only_female.csv")
+write.csv(as.data.frame(gene_resAnno),file="gene_resAnno_only_female.csv")
 
 # Export count matrix
 count_gene_matrix_normalized = counts(gene_dds, normalized=TRUE)
-count_gene_matrix_raw = counts(gene_dds, normalized=FALSE)
+#count_gene_matrix_raw = counts(gene_dds, normalized=FALSE)
 
-write.csv(count_gene_matrix_raw, file = "results_gene_counts_raw_only_female_2312112.csv")
+#write.csv(count_gene_matrix_raw, file = "results_gene_counts_raw_only_female_2312112.csv")
 
 write.csv(count_gene_matrix_normalized, file = "results_gene_counts_normalized_only_female_231212.csv")
 
